@@ -1,0 +1,218 @@
+@font-face { font-family: 'NauryzRedKeds'; src: local('NauryzRedKeds'); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: 'Gropled'; src: local('Gropled'); font-weight: 400 900; font-display: swap; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #ece9e4; --bg-soft: #f3f1ec; --card: #ffffff;
+  --beige: #e8e2d5; --beige-deep: #d9d2c1; --dark: #1c1b1a;
+  --text: #2a2724; --muted: #8a857d; --line: #e6e2d9;
+  --danger: #c14a4a;
+  --radius-lg: 20px; --radius-md: 14px; --radius-sm: 10px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.04);
+  --shadow-md: 0 8px 24px rgba(0,0,0,.06);
+  --shadow-lg: 0 14px 40px rgba(0,0,0,.08);
+  --font-display: 'NauryzRedKeds', 'Inter', system-ui, sans-serif;
+  --font-caption: 'Gropled', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* Фокус — единый стиль для всех интерактивных элементов */
+:focus-visible {
+  outline: 2px solid var(--dark);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.app {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 28px 24px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header h1 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--dark);
+  line-height: 1.1;
+}
+.header-sub {
+  font-family: var(--font-caption);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #7cbf94;
+  box-shadow: 0 0 0 3px rgba(124, 191, 148, .2);
+  animation: livePulse 2s infinite;
+}
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(124, 191, 148, .2); }
+  50% { box-shadow: 0 0 0 6px rgba(124, 191, 148, .05); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Тулбар добавления виджетов */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 4px 6px 8px;
+}
+.toolbar-btn {
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  font-family: var(--font-caption);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.toolbar-btn:hover {
+  background: var(--dark);
+  color: #fff;
+  border-color: var(--dark);
+  transform: translateY(-1px);
+}
+.toolbar-btn:focus-visible { outline: 2px solid var(--dark); outline-offset: 2px; }
+
+/* Сетка виджетов */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.full { grid-column: 1 / -1; }
+
+/* Базовый виджет */
+.card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp .55s cubic-bezier(.2,.7,.3,1) backwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card-body { display: flex; flex-direction: column; }
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.card-title-wrap { display: flex; align-items: center; gap: 14px; }
+.card-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--bg-soft);
+  display: grid; place-items: center;
+  color: var(--dark);
+  flex-shrink: 0;
+}
+.card-icon svg { width: 22px; height: 22px; }
+.card-title {
+  font-family: var(--font-caption);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.005em;
+  line-height: 1.1;
+}
+.card-subtitle {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.chip {
+  font-family: var(--font-caption);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 6px 13px;
+  border-radius: 20px;
+  background: var(--bg-soft);
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Кнопки управления виджетом (minimize / close) */
+.widget-actions { display: flex; align-items: center; gap: 6px; }
+.widget-ctrl {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 16px;
+  line-height: 1;
+  padding-bottom: 2px;
+  transition: all .2s ease;
+}
+.widget-ctrl:hover {
+  background: var(--dark);
+  color: #fff;
+  border-color: var(--dark);
+}
+.widget-ctrl:focus-visible { outline: 2px solid var(--dark); outline-offset: 2px; }
+
+/* Свёрнутое состояние */
+.widget--minimized .card-body,
+.widget--minimized .hero-content,
+.widget--minimized .panel-image-content { display: none; }
+.widget--minimized { min-height: auto !important; }
+
+/* Сетка при узком экране */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 28px; }
+  .card-title { font-size: 22px; }
+}
+@media (max-width: 600px) {
+  .app { padding: 16px 14px 40px; gap: 16px; }
+  .card { padding: 20px; }
+}
